@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="pull-left">
+      <a class="btn btn-primary" id="novoEvento" [routerLink]="['/nova']">
+          <span title="Nova Tarefa" class="glyphicon glyphicon-plus-sign"></span> Nova Tarefa
+        </a>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="page-size">
+  <div *ngIf="loading" style="text-align: center">
+    <span><i class='fa fa-refresh fa-spin'></i> Carregando...</span>
+  </div>
+
+  <div class="panel panel-default">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Título</th>
+          <th>Descricao</th>
+          <th>Concluída</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let tarefa of tarefas' [ngClass]="{'underline': tarefa.status == 1 }">
+          <th>{{tarefa.id}}</th>
+          <td>{{tarefa.titulo}}</td>
+          <td>{{tarefa.descricao}}</td>
+          <td><input type="checkbox" [checked]="tarefa.status == 1" (change)="alteraStatus(tarefa, tarefa.status == 0)" />
+          </td>
+          <td>
+            <a [routerLink]="['/editar', tarefa.id]" title="Detalhes" class="btn btn-sm btn-primary">
+                <span class="glyphicon glyphicon-search"></span> Editar
+              </a>
+            <a (click)="excluirTarefa(tarefa.id)" title="Detalhes" class="btn btn-sm btn-danger">
+                <span class="glyphicon glyphicon-search"></span> Excluir
+              </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
